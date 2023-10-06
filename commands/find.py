@@ -40,15 +40,15 @@ class Find:
         file.close()
         return matches
     
-    def __end_bracket(self, pattern, bracket_idx):
-        for i in range(bracket_idx, len(pattern)-1):
+    def __symbol_finder(self, pattern, start, ascii):
+        for i in range(start, len(pattern)-1):
             curr = self.__char_to_index(pattern[i])
-            if curr == 93:
+            if curr == ascii:
                 return i
         return
     
     def set_search(self, pattern, bracket_idx):
-        end_bracket_idx = self.__end_bracket(pattern, bracket_idx)
+        end_bracket_idx = self.__symbol_finder(pattern, bracket_idx, 93)
         first_part = pattern[:bracket_idx]
         set_part = pattern[bracket_idx + 1: end_bracket_idx]
         second_part = pattern[end_bracket_idx+1:]
@@ -61,12 +61,24 @@ class Find:
         return matches
     
     def range_search(self, pattern, bracket_idx):
-        end_bracket_idx = self.__end_bracket(pattern, bracket_idx)
+        end_bracket_idx = self.__symbol_finder(pattern, bracket_idx, 93)
         first_part = pattern[:bracket_idx]
         second_part = pattern[end_bracket_idx+1:]
         words = []
         matches = []
         for i in range(self.__char_to_index(pattern[bracket_idx+1]), self.__char_to_index(pattern[end_bracket_idx-1])+1):
+            words.append(first_part + chr(i) + second_part)
+        for i in range(len(words)):
+            matches.append(self.search(words[i]))
+        return matches
+    
+    def all_char_search(self, pattern):
+        asterisk_idx = self.__symbol_finder(pattern, 0, 42)
+        first_part = pattern[:asterisk_idx]
+        second_part = pattern[asterisk_idx+1:]
+        words = []
+        matches = []
+        for i in range(97, 123):
             words.append(first_part + chr(i) + second_part)
         for i in range(len(words)):
             matches.append(self.search(words[i]))
