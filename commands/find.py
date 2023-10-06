@@ -101,3 +101,12 @@ class Find:
         matches = []
         matches.append(self.search(word))
         return matches
+    
+    def question_search(self, pattern):
+        question_idx = self.__symbol_finder(pattern, 0, 63)
+        first_part = pattern[:question_idx]
+        second_part = pattern[question_idx+1:]
+        matches = []
+        matches.append(self.search(first_part + second_part))
+        matches.append(self.search(first_part[:-1] + second_part))
+        return matches
