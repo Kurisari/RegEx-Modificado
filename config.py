@@ -11,6 +11,7 @@ config = {
         "appear": "?",
         "any_letter": "*",
         "or": "|",
+        "ALPHABET_SIZE": 130,
     }
     
 }
