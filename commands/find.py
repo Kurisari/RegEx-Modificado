@@ -50,16 +50,24 @@ class Find:
     def set_search(self, pattern, bracket_idx):
         end_bracket_idx = self.__end_bracket(pattern, bracket_idx)
         first_part = pattern[:bracket_idx]
-        range_part = pattern[bracket_idx + 1: end_bracket_idx]
+        set_part = pattern[bracket_idx + 1: end_bracket_idx]
         second_part = pattern[end_bracket_idx+1:]
         words = []
         matches = []
-        for i in range(len(range_part)):
-            words.append(first_part + range_part[i] + second_part)
+        for i in range(len(set_part)):
+            words.append(first_part + set_part[i] + second_part)
         for i in range(len(words)):
-            print(words[i])
             matches.append(self.search(words[i]))
         return matches
     
     def range_search(self, pattern, bracket_idx):
-        pass
+        end_bracket_idx = self.__end_bracket(pattern, bracket_idx)
+        first_part = pattern[:bracket_idx]
+        second_part = pattern[end_bracket_idx+1:]
+        words = []
+        matches = []
+        for i in range(self.__char_to_index(pattern[bracket_idx+1]), self.__char_to_index(pattern[end_bracket_idx-1])+1):
+            words.append(first_part + chr(i) + second_part)
+        for i in range(len(words)):
+            matches.append(self.search(words[i]))
+        return matches
