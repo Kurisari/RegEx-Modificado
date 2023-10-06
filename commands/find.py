@@ -47,7 +47,7 @@ class Find:
                 return i
         return
     
-    def range_search(self, pattern, bracket_idx):
+    def set_search(self, pattern, bracket_idx):
         end_bracket_idx = self.__end_bracket(pattern, bracket_idx)
         first_part = pattern[:bracket_idx]
         range_part = pattern[bracket_idx + 1: end_bracket_idx]
