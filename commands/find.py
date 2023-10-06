@@ -83,3 +83,21 @@ class Find:
         for i in range(len(words)):
             matches.append(self.search(words[i]))
         return matches
+    
+    def or_search(self, pattern):
+        bar_idx = self.__symbol_finder(pattern, 0, 124)
+        first_pattern = pattern[:bar_idx-1]
+        second_pattern = pattern[bar_idx+2:]
+        matches = []
+        matches.append(self.search(first_pattern))
+        matches.append(self.search(second_pattern))
+        return matches
+    
+    def key_search(self, pattern, key_idx):
+        end_key_idx = self.__symbol_finder(pattern, 0, 125)
+        first_part = pattern[:key_idx-1]
+        second_part = pattern[end_key_idx+1:]
+        word = first_part + pattern[key_idx-1]*5 + second_part
+        matches = []
+        matches.append(self.search(word))
+        return matches
