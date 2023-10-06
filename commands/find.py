@@ -53,6 +53,13 @@ class Find:
         range_part = pattern[bracket_idx + 1: end_bracket_idx]
         second_part = pattern[end_bracket_idx+1:]
         words = []
+        matches = []
         for i in range(len(range_part)):
             words.append(first_part + range_part[i] + second_part)
-        return words
+        for i in range(len(words)):
+            print(words[i])
+            matches.append(self.search(words[i]))
+        return matches
+    
+    def range_search(self, pattern, bracket_idx):
+        pass
