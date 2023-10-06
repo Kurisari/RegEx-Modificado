@@ -6,4 +6,4 @@ prefix_find_replace = config["find_replace"]["px"]
 
 prueba = Find.Find("texto.txt")
 # print(prueba.search("algorithms"))
-print(prueba.set_search("al[agc]orithms", 2))
+print(prueba.range_search("al[a-t]orithms", 2))
