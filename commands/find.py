@@ -6,6 +6,7 @@
     #* ab?cd -> La letra inmediatamente antes del signo ? puede o no aparecer en el match encontrado.
     #* abc | fg*i -> El operador | funciona como un or lógico. El texto puede hacer match con la string de la izquierda o la derecha.
     #* a{5}cd -> Operador de repetición. La letra a se repite 5 veces, resultando en el patrón “aaaaacd”.
+    # TODO: Banderas "g" e "i"
 '''
 from config import config
 class Find:
