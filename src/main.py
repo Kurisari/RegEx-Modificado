@@ -1,13 +1,63 @@
 from config import config
 from commands import Find
+from commands import Find_replace
+from events import Identifier
 
 prefix_find = config["find"]["px"]
 prefix_find_replace = config["find_replace"]["px"]
 
-prueba = Find.Find("texto.txt")
+# prueba = Find.Find("texto.txt")
 # print(prueba.search("algorithms"))
 # print(prueba.range_search("al[a-t]orithms", 2))
 # print(prueba.all_char_search("alg*rithms"))
 # print(prueba.or_search("algorithms | algorithm"))
 # print(prueba.key_search("algor{5}ithm", 5))
-print(prueba.question_search("algor?ithms"))
+# print(prueba.question_search("algor?ithms"))
+
+
+user_input = ""
+while user_input != " ":
+    user_input = input()
+    Identify = Identifier.Identifier(user_input)
+    replace = Identify.replaceIdentifier()
+    Range = Identify.symbol_finder(user_input, 0, 45)
+    Set = Identify.symbol_finder(user_input, 0, 91)
+    Asterisk = Identify.symbol_finder(user_input, 0, 42)
+    Question = Identify.symbol_finder(user_input, 0, 63)
+    Or = Identify.symbol_finder(user_input, 0, 124)
+    Key = Identify.symbol_finder(user_input, 0, 123)
+    if replace:
+        find_replace = Find_replace.Find("texto.txt")
+    else:
+        find = Find.Find("texto.txt")
+        if Range:
+            print("Rango")
+            pattern = Identify.identify_pattern(user_input)
+            bracket_idx = Identify.symbol_finderI(user_input, 0, 91) - 2
+            print(find.range_search(pattern, bracket_idx))
+        if Set and not Range:
+            print("Conjunto")
+            pattern = Identify.identify_pattern(user_input)
+            bracket_idx = Identify.symbol_finderI(user_input, 0, 91) - 2
+            print(find.set_search(pattern, bracket_idx))
+        if Asterisk:
+            print("Asterisco")
+            pattern = Identify.identify_pattern(user_input)
+            print(find.all_char_search(pattern))
+        if Question:
+            print("Pregunta")
+            pattern = Identify.identify_pattern(user_input)
+            print(find.question_search(pattern))
+        if Or:
+            print("O")
+            pass
+        if Key:
+            print("Repeticion")
+            pattern = Identify.identify_pattern(user_input)
+            key_idx = Identify.symbol_finderI(user_input, 0, 123) - 2
+            print(find.key_search(pattern, key_idx))
+        if not Range and not Set and not Asterisk and not Question and not Or and not Key:
+            pattern = Identify.identify_pattern(user_input)
+            print(find.search(pattern))
+        
+    
