@@ -9,6 +9,7 @@
     # TODO: Banderas "g" e "i"
 '''
 from config import config
+from events import Identifier
 class Find:
     def __init__(self, filename):
         self.ALPHABET_SIZE = config["global"]["ALPHABET_SIZE"]
@@ -106,8 +107,10 @@ class Find:
     def key_search(self, pattern, key_idx):
         end_key_idx = self.__symbol_finder(pattern, 0, 125)
         first_part = pattern[:key_idx-1]
+        number = pattern[key_idx+1:end_key_idx]
         second_part = pattern[end_key_idx+1:]
-        word = first_part + pattern[key_idx-1]*5 + second_part
+        number = (int)(number)
+        word = first_part + pattern[key_idx-1]*number + second_part
         matches = []
         matches.append(self.search(word))
         return matches
