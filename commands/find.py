@@ -9,7 +9,6 @@
     # TODO: Banderas "g" e "i"
 '''
 from config import config
-from events import Identifier
 class Find:
     def __init__(self, filename):
         self.ALPHABET_SIZE = config["global"]["ALPHABET_SIZE"]
