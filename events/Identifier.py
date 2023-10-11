@@ -40,8 +40,14 @@ class Identifier:
         user_input = aux
         return user_input
     
-    def identify_or(self, user_input):
-        pass
+    def identify_or(self, user_input, start):
+        aux = ""
+        for i in range(start, len(user_input)):
+            if user_input[i] == " " and user_input[i+1] != "|" and user_input[i-1] != "|":
+                break
+            aux += user_input[i]
+        user_input = aux
+        return user_input
     
     def replaceIdentifier(self):
         frSearch = self.__search("fr ")
