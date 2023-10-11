@@ -8,13 +8,6 @@ class Identifier:
     def __char_to_index(self, char):
         return ord(char)
     
-    def __calculate_bad_match_table(self, pattern):
-        p = len(pattern)
-        bad = [p]*self.ALPHABET_SIZE
-        for k in range(p - 1):
-            bad[self.__char_to_index(pattern[k])] = p - k - 1
-        return bad
-    
     def __search(self, pattern):
         if pattern == "":
             return
