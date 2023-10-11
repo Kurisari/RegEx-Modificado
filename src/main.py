@@ -3,9 +3,6 @@ from commands import Find
 from commands import Find_replace
 from events import Identifier
 
-prefix_find = config["find"]["px"]
-prefix_find_replace = config["find_replace"]["px"]
-
 user_input = ""
 while user_input != " ":
     user_input = input()
@@ -82,6 +79,11 @@ while user_input != " ":
             print(find.key_search(pattern, key_idx))
         if not Range and not Set and not Asterisk and not Question and not Or and not Key:
             pattern = Identify.identify_pattern(user_input, 2)
-            print(find.search(pattern))
+            flags = Identify.identify_flags(user_input, 2)
+            if len(flags) == 0:
+                flags = [""]*2
+            if len(flags) == 1:
+                flags.append("")
+            print(find.search(pattern, flags[0], flags[1]))
         
     
