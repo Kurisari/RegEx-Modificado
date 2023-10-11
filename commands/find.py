@@ -24,7 +24,14 @@ class Find:
             bad[self.__char_to_index(pattern[k])] = p - k - 1
         return bad
     
-    def search(self, pattern):
+    def __symbol_finder(self, pattern, start, ascii):
+        for i in range(start, len(pattern)-1):
+            curr = self.__char_to_index(pattern[i])
+            if curr == ascii:
+                return i
+        return
+    
+    def search(self, pattern, flag1, flag2):
         if pattern == "":
             return
         matches = []
@@ -44,18 +51,15 @@ class Find:
                         else:
                             break
                     if shared_substr == patt_size:
-                        matches.append((line, text_idx - patt_size + 1))
+                        if flag1 == config["global"]["global_flag"] or flag2 == config["global"]["global_flag"]:
+                            matches.append((line, text_idx - patt_size + 1))
+                        else:
+                            matches.append((line, text_idx - patt_size + 1))
+                            return matches
                     text_idx += bad_match_table[ord(current_line[min(text_idx, len(current_line) - 1)])]
                 current_line = file.readline()
         file.close()
         return matches
-    
-    def __symbol_finder(self, pattern, start, ascii):
-        for i in range(start, len(pattern)-1):
-            curr = self.__char_to_index(pattern[i])
-            if curr == ascii:
-                return i
-        return
     
     def set_search(self, pattern, bracket_idx):
         end_bracket_idx = self.__symbol_finder(pattern, bracket_idx, 93)
