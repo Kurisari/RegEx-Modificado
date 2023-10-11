@@ -35,7 +35,7 @@ class Find:
                 line += 1
                 bad_match_table = self.__calculate_bad_match_table(pattern)
                 patt_size = len(pattern)
-                text_idx = patt_size - 1  # Modificación aquí
+                text_idx = patt_size - 1
                 while text_idx < len(current_line):
                     shared_substr = 0
                     while shared_substr < patt_size:
@@ -45,7 +45,7 @@ class Find:
                             break
                     if shared_substr == patt_size:
                         matches.append((line, text_idx - patt_size + 1))
-                    text_idx += bad_match_table[ord(current_line[min(text_idx, len(current_line) - 1)])]  # Modificación aquí
+                    text_idx += bad_match_table[ord(current_line[min(text_idx, len(current_line) - 1)])]
                 current_line = file.readline()
         file.close()
         return matches
