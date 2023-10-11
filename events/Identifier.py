@@ -38,9 +38,9 @@ class Identifier:
                 return i
         return
     
-    def identify_pattern(self, user_input):
+    def identify_pattern(self, user_input, start):
         aux = ""
-        for i in range(2, len(user_input)):
+        for i in range(start, len(user_input)):
             if user_input[i] == " ":
                 break
             aux += user_input[i]
