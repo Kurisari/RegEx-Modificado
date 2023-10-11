@@ -40,6 +40,12 @@ class Identifier:
         user_input = aux
         return user_input
     
+    def __end_pattern_idx(self, user_input, start):
+        for i in range(start, len(user_input)):
+            if user_input[i] == " ":
+                return i
+        return len(user_input)
+    
     def identify_or(self, user_input, start):
         aux = ""
         for i in range(start, len(user_input)):
@@ -48,6 +54,14 @@ class Identifier:
             aux += user_input[i]
         user_input = aux
         return user_input
+    
+    def identify_flags(self, user_input, start):
+        end_pattern = self.__end_pattern_idx(user_input, start)
+        flags = []
+        for i in range(end_pattern, len(user_input)):
+            if user_input[i] != " ":
+                flags.append(user_input[i])
+        return flags
     
     def replaceIdentifier(self):
         frSearch = self.__search("fr ")
