@@ -54,7 +54,7 @@ This project, created for the Data Structures and Algorithms II course, customiz
 
 ## Running Tests
 
-To run tests, run the following command
+To run tests, run the following commands
 
 ```bash
   f regex g i
