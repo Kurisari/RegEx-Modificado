@@ -18,35 +18,41 @@ while user_input != " ":
         find_replace = Find_replace.FindReplace("texto.txt")
         if Range:
             print("Rango")
-            pattern = Identify.identify_pattern(user_input, 3)
-            bracket_idx = Identify.symbol_finderI(user_input, 0, 91) - 3
-            print(find_replace.range_search(pattern, bracket_idx))
+            pattern = Identify.identify_pattern(user_input)
+            bracket_idx = Identify.symbol_finderI(pattern, 91)
+            flags = Identify.identify_flags(user_input)
+            print(find_replace.range_search(pattern, bracket_idx, flags[0], flags[1]))
         if Set and not Range:
             print("Conjunto")
-            pattern = Identify.identify_pattern(user_input, 3)
-            bracket_idx = Identify.symbol_finderI(user_input, 0, 91) - 3
-            print(find_replace.set_search(pattern, bracket_idx))
+            pattern = Identify.identify_pattern(user_input)
+            bracket_idx = Identify.symbol_finderI(pattern, 91)
+            flags = Identify.identify_flags(user_input)
+            print(find_replace.set_search(pattern, bracket_idx, flags[0], flags[1]))
         if Asterisk:
             print("Asterisco")
-            pattern = Identify.identify_pattern(user_input, 3)
-            print(find_replace.all_char_search(pattern))
+            pattern = Identify.identify_pattern(user_input)
+            flags = Identify.identify_flags(user_input)
+            print(find_replace.all_char_search(pattern, flags[0], flags[1]))
         if Question:
             print("Pregunta")
-            pattern = Identify.identify_pattern(user_input, 3)
-            print(find_replace.question_search(pattern))
+            pattern = Identify.identify_pattern(user_input)
+            flags = Identify.identify_flags(user_input)
+            print(find_replace.question_search(pattern, flags[0], flags[1]))
         if Or:
             print("O")
-            pattern = Identify.identify_or(user_input, 3)
-            print(pattern)
-            print(find_replace.or_search(pattern))
+            pattern = Identify.identify_or(user_input)
+            flags = Identify.identify_or_flags(user_input)
+            print(find_replace.or_search(pattern, flags[0], flags[1]))
         if Key:
             print("Repeticion")
-            pattern = Identify.identify_pattern(user_input, 3)
-            key_idx = Identify.symbol_finderI(user_input, 0, 123) - 3
-            print(find_replace.key_search(pattern, key_idx))
+            pattern = Identify.identify_pattern(user_input)
+            key_idx = Identify.symbol_finderI(pattern, 123)
+            flags = Identify.identify_flags(user_input)
+            print(find_replace.key_search(pattern, key_idx, flags[0], flags[1]))
         if not Range and not Set and not Asterisk and not Question and not Or and not Key:
-            pattern = Identify.identify_pattern(user_input, 3)
-            print(find_replace.search(pattern))
+            pattern = Identify.identify_pattern(user_input)
+            flags = Identify.identify_flags(user_input)
+            print(find_replace.search(pattern, flags[0], flags[1]))
     else:
         find = Find.Find("texto.txt")
         if Range:
