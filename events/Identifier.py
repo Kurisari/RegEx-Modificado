@@ -120,6 +120,29 @@ class Identifier:
             flags.append("")
         return flags
     
+    def identify_replace_or_word(self, user_input):
+        end_pattern = self.__end_or(user_input)
+        new_input = user_input[end_pattern:]
+        start_replace = self.__begin_pattern_idx(new_input)
+        end_replace = self.__end_pattern_idx(new_input, start_replace)
+        replace_word = new_input[start_replace:end_replace]
+        return replace_word
+    
+    def identify_replace_or_flags(self, user_input):
+        end_pattern = self.__end_or(user_input)
+        new_input = user_input[end_pattern:]
+        start_replace = self.__begin_pattern_idx(new_input)
+        end_replace = self.__end_pattern_idx(new_input, start_replace)
+        flags = []
+        for i in range(end_replace, len(new_input)):
+            if new_input[i] != " ":
+                flags.append(new_input[i])
+        if len(flags) == 0:
+                flags = [""]*2
+        if len(flags) == 1:
+            flags.append("")
+        return flags
+    
     def replaceIdentifier(self):
         frSearch = self.__search("fr ")
         if len(frSearch) == 0:
