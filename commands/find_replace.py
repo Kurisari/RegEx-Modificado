@@ -60,7 +60,7 @@ class FindReplace:
             file.writelines(lines)
         return matches
     
-    def set_search(self, pattern, bracket_idx, flag1, flag2):
+    def set_search(self, pattern, replace, bracket_idx, flag1, flag2):
         end_bracket_idx = self.__symbol_finder(pattern, bracket_idx, 93)
         first_part = pattern[:bracket_idx]
         set_part = pattern[bracket_idx + 1: end_bracket_idx]
@@ -70,10 +70,10 @@ class FindReplace:
         for i in range(len(set_part)):
             words.append(first_part + set_part[i] + second_part)
         for i in range(len(words)):
-            matches.append(self.search(words[i], flag1, flag2))
+            matches.append(self.search(words[i], replace, flag1, flag2))
         return matches
     
-    def range_search(self, pattern, bracket_idx, flag1, flag2):
+    def range_search(self, pattern, replace, bracket_idx, flag1, flag2):
         end_bracket_idx = self.__symbol_finder(pattern, bracket_idx, 93)
         first_part = pattern[:bracket_idx]
         second_part = pattern[end_bracket_idx+1:]
@@ -82,10 +82,10 @@ class FindReplace:
         for i in range(self.__char_to_index(pattern[bracket_idx+1]), self.__char_to_index(pattern[end_bracket_idx-1])+1):
             words.append(first_part + chr(i) + second_part)
         for i in range(len(words)):
-            matches.append(self.search(words[i], flag1, flag2))
+            matches.append(self.search(words[i], replace, flag1, flag2))
         return matches
     
-    def all_char_search(self, pattern, flag1, flag2):
+    def all_char_search(self, pattern, replace, flag1, flag2):
         asterisk_idx = self.__symbol_finder(pattern, 0, 42)
         first_part = pattern[:asterisk_idx]
         second_part = pattern[asterisk_idx+1:]
@@ -94,19 +94,19 @@ class FindReplace:
         for i in range(97, 123):
             words.append(first_part + chr(i) + second_part)
         for i in range(len(words)):
-            matches.append(self.search(words[i], flag1, flag2))
+            matches.append(self.search(words[i], replace, flag1, flag2))
         return matches
     
-    def or_search(self, pattern, flag1, flag2):
+    def or_search(self, pattern, replace, flag1, flag2):
         bar_idx = self.__symbol_finder(pattern, 0, 124)
         first_pattern = pattern[:bar_idx-1]
         second_pattern = pattern[bar_idx+2:]
         matches = []
-        matches.append(self.search(first_pattern, flag1, flag2))
-        matches.append(self.search(second_pattern, flag1, flag2))
+        matches.append(self.search(first_pattern, replace, flag1, flag2))
+        matches.append(self.search(second_pattern, replace, flag1, flag2))
         return matches
     
-    def key_search(self, pattern, key_idx, flag1, flag2):
+    def key_search(self, pattern, replace, key_idx, flag1, flag2):
         end_key_idx = self.__symbol_finder(pattern, 0, 125)
         first_part = pattern[:key_idx-1]
         number = pattern[key_idx+1:end_key_idx]
@@ -114,14 +114,14 @@ class FindReplace:
         number = (int)(number)
         word = first_part + pattern[key_idx-1]*number + second_part
         matches = []
-        matches.append(self.search(word, flag1, flag2))
+        matches.append(self.search(word, replace, flag1, flag2))
         return matches
     
-    def question_search(self, pattern, flag1, flag2):
+    def question_search(self, pattern, replace, flag1, flag2):
         question_idx = self.__symbol_finder(pattern, 0, 63)
         first_part = pattern[:question_idx]
         second_part = pattern[question_idx+1:]
         matches = []
-        matches.append(self.search(first_part + second_part, flag1, flag2))
-        matches.append(self.search(first_part[:-1] + second_part, flag1, flag2))
+        matches.append(self.search(first_part + second_part, replace, flag1, flag2))
+        matches.append(self.search(first_part[:-1] + second_part, replace, flag1, flag2))
         return matches
