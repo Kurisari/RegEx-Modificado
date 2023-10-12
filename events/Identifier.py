@@ -144,7 +144,7 @@ class Identifier:
         return flags
     
     def replaceIdentifier(self):
-        frSearch = self.__search("fr ")
+        frSearch = self.__search(config["find_replace"]["px"])
         if len(frSearch) == 0:
             return False
         else:
