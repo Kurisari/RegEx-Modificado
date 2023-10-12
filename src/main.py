@@ -15,7 +15,7 @@ while user_input != " ":
     Or = Identify.symbol_finder(user_input, 0, ord(config["global"]["or"]))
     Key = Identify.symbol_finder(user_input, 0, 123)
     if replace:
-        find_replace = Find_replace.FindReplace("texto.txt")
+        find_replace = Find_replace.FindReplace(config["global"]["text"])
         if Range:
             pattern = Identify.identify_pattern(user_input)
             bracket_idx = Identify.symbol_finderI(pattern, 91)
@@ -55,7 +55,7 @@ while user_input != " ":
             replace = Identify.identify_replace_word(user_input)
             print(find_replace.search(pattern, replace, flags[0], flags[1]))
     else:
-        find = Find.Find("texto.txt")
+        find = Find.Find(config["global"]["text"])
         if Range:
             pattern = Identify.identify_pattern(user_input)
             bracket_idx = Identify.symbol_finderI(pattern, 91)

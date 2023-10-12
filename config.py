@@ -12,6 +12,7 @@ config = {
         "any_letter": "*",
         "or": "|",
         "ALPHABET_SIZE": 130,
+        "text": "texto.txt",
     }
     
 }
