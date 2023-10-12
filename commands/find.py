@@ -37,6 +37,9 @@ class Find:
         matches = []
         with open(self.filename, 'r') as file:
             current_line = file.readline()
+            if flag1 == "i" or flag2 == "i":
+                current_line = current_line.lower()
+                pattern = pattern.lower()
             line = 0
             while current_line:
                 line += 1
@@ -58,6 +61,8 @@ class Find:
                             return matches
                     text_idx += bad_match_table[ord(current_line[min(text_idx, len(current_line) - 1)])]
                 current_line = file.readline()
+                if flag1 == "i" or flag2 == "i":
+                    current_line = current_line.lower()
         file.close()
         return matches
     
