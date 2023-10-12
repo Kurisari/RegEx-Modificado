@@ -1,9 +1,9 @@
 config = {
     "find": {
-        "px": "f",
+        "px": "f ",
     },
     "find_replace": {
-        "px": "fr",
+        "px": "fr ",
     },
     "global": {
         "global_flag": "g",
