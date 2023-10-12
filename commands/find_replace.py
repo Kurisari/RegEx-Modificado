@@ -21,18 +21,19 @@ class FindReplace:
                 return i
         return
     
-    def search(self, pattern, flag1, flag2):
+    def search(self, pattern, replace, flag1, flag2):
         if pattern == "":
             return
         matches = []
         with open(self.filename, 'r') as file:
-            current_line = file.readline()
+            lines = file.readlines()
+        with open(self.filename, 'w') as file:
             if flag1 == "i" or flag2 == "i":
-                current_line = current_line.lower()
+                lines = [line.lower() for line in lines]
                 pattern = pattern.lower()
-            line = 0
-            while current_line:
-                line += 1
+            line_num = 0
+            for current_line in lines:
+                line_num += 1
                 bad_match_table = self.__calculate_bad_match_table(pattern)
                 patt_size = len(pattern)
                 text_idx = patt_size - 1
@@ -44,16 +45,19 @@ class FindReplace:
                         else:
                             break
                     if shared_substr == patt_size:
+                        current_line = current_line[:text_idx - patt_size + 1] + replace + current_line[text_idx + 1:]
                         if flag1 == config["global"]["global_flag"] or flag2 == config["global"]["global_flag"]:
-                            matches.append((line, text_idx - patt_size + 1))
+                            matches.append((line_num, text_idx - patt_size + 1))
                         else:
-                            matches.append((line, text_idx - patt_size + 1))
+                            matches.append((line_num, text_idx - patt_size + 1))
+                            lines[line_num - 1] = current_line
+                            file.writelines(lines)
                             return matches
                     text_idx += bad_match_table[ord(current_line[min(text_idx, len(current_line) - 1)])]
-                current_line = file.readline()
+                lines[line_num - 1] = current_line
                 if flag1 == "i" or flag2 == "i":
                     current_line = current_line.lower()
-        file.close()
+            file.writelines(lines)
         return matches
     
     def set_search(self, pattern, bracket_idx, flag1, flag2):
