@@ -63,9 +63,28 @@ class Identifier:
         user_input = aux
         return user_input
     
+    def __end_or(self, user_input):
+        start = self.__begin_pattern_idx(user_input)
+        for i in range(start, len(user_input)):
+            if user_input[i] == " " and user_input[i+1] != "|" and user_input[i-1] != "|":
+                return i
+        return i
+    
     def identify_flags(self, user_input):
         start = self.__begin_pattern_idx(user_input)
         end_pattern = self.__end_pattern_idx(user_input, start)
+        flags = []
+        for i in range(end_pattern, len(user_input)):
+            if user_input[i] != " ":
+                flags.append(user_input[i])
+        if len(flags) == 0:
+                flags = [""]*2
+        if len(flags) == 1:
+            flags.append("")
+        return flags
+    
+    def identify_or_flags(self, user_input):
+        end_pattern = self.__end_or(user_input)
         flags = []
         for i in range(end_pattern, len(user_input)):
             if user_input[i] != " ":
