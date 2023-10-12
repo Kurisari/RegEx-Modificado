@@ -1,6 +1,14 @@
 # RegEx-Modificado
 
-This README provides an overview of the code structure and functionality, as well as instructions on how to use it. The code is divided into multiple files, each serving a specific purpose. Below is a description of each file and its functionality:
+This project, created for the Data Structures and Algorithms II course, customizes regular expressions (RegEx) functionality. The code allows pattern identification and manipulation in text, making it a valuable learning resource for string searching and manipulation algorithms.
+
+## Authors
+
+- [@Kurisari](https://www.github.com/kurisari)
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
 
 ## File Structure
 
@@ -18,7 +26,7 @@ This README provides an overview of the code structure and functionality, as wel
 
 1. Start by configuring the patterns, flags, and constants in `config.py`. Modify the dictionary values as needed to fit your specific use case.
 
-2. Run the `main.py` script. It will continuously prompt you for input, to exit the code you have to write `" "`.
+2. Run the `main.py` script. It will continuously prompt you for input.
 
 3. Enter the pattern you want to search for, along with optional flags and replacement text if you want to perform a find-and-replace operation.
 
@@ -44,4 +52,23 @@ This README provides an overview of the code structure and functionality, as wel
 
 - The code supports searching for a pattern or performing find-and-replace operations.
 
-Feel free to modify and extend this code to suit your specific needs.
+## Running Tests
+
+To run tests, run the following command
+
+```bash
+  f regex g i
+  [(1, 0), (5, 3), (10, 20)]
+  f regex g
+  [(1, 0), (10, 20)]
+  f regex
+  [(1, 0)]
+  f reg?ex g i
+  [[(1, 0), (5, 3), (10, 20)], [(3, 10), (3, 28)]]
+  f reg?ex g
+  [[(1, 0), (10, 20)], [(3, 10)]]
+  f regex
+  [[(1, 0)], [(3, 10)]]
+  fr regex REGEX g i
+  [(1, 0), (5, 3), (10, 20)]
+```
