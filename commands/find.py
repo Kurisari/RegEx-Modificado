@@ -15,11 +15,11 @@ class Find:
         return bad
     
     def __symbol_finder(self, pattern, start, ascii):
-        for i in range(start, len(pattern)-1):
+        for i in range(start, len(pattern)):
             curr = self.__char_to_index(pattern[i])
             if curr == ascii:
                 return i
-        return
+        return i
     
     def search(self, pattern, flag1, flag2):
         if pattern == "":
