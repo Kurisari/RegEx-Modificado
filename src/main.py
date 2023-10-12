@@ -3,9 +3,12 @@ from commands import Find
 from commands import Find_replace
 from events import Identifier
 
+# User input variable
 user_input = ""
+# To exit the code " " is necessary
 while user_input != " ":
     user_input = input()
+    # The following lines are to identify the search case
     Identify = Identifier.Identifier(user_input)
     replace = Identify.replaceIdentifier()
     Range = Identify.symbol_finder(user_input, 0, 45)
@@ -14,6 +17,7 @@ while user_input != " ":
     Question = Identify.symbol_finder(user_input, 0, ord(config["global"]["appear"]))
     Or = Identify.symbol_finder(user_input, 0, ord(config["global"]["or"]))
     Key = Identify.symbol_finder(user_input, 0, 123)
+    # According to the char identified is the case and if it's repaced or not
     if replace:
         find_replace = Find_replace.FindReplace(config["global"]["text"])
         if Range:
