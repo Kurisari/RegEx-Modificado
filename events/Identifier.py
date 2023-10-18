@@ -18,14 +18,14 @@ class Identifier:
         return matches
     
     def symbol_finder(self, pattern, start, ascii):
-        for i in range(start, len(pattern)-1):
+        for i in range(start, len(pattern)):
             curr = self.__char_to_index(pattern[i])
             if curr == ascii:
                 return True
         return False
     
     def symbol_finderI(self, pattern, ascii):
-        for i in range(len(pattern)-1):
+        for i in range(len(pattern)):
             curr = self.__char_to_index(pattern[i])
             if curr == ascii:
                 return i
