@@ -1,4 +1,5 @@
 from config import config
+from events import Identifier
 class FindReplace:
     def __init__(self, filename):
         self.ALPHABET_SIZE = config["global"]["ALPHABET_SIZE"]
@@ -101,9 +102,43 @@ class FindReplace:
         bar_idx = self.__symbol_finder(pattern, 0, 124)
         first_pattern = pattern[:bar_idx-1]
         second_pattern = pattern[bar_idx+2:]
+        Identify = Identifier.Identifier(first_pattern)
+        Range = Identify.symbol_finder(first_pattern, 0, 45)
+        Set = Identify.symbol_finder(first_pattern, 0, 91)
+        Asterisk = Identify.symbol_finder(first_pattern, 0, ord(config["global"]["any_letter"]))
+        Question = Identify.symbol_finder(first_pattern, 0, ord(config["global"]["appear"]))
+        Key = Identify.symbol_finder(first_pattern, 0, 123)
         matches = []
-        matches.append(self.search(first_pattern, replace, flag1, flag2))
-        matches.append(self.search(second_pattern, replace, flag1, flag2))
+        if Range:
+            matches.append(self.range_search(first_pattern, replace, flag1, flag2))
+        if Set:
+            matches.append(self.set_search(first_pattern, replace, flag1, flag2))
+        if Asterisk:
+            matches.append(self.all_char_search(first_pattern, replace, flag1, flag2))
+        if Question:
+            matches.append(self.question_search(first_pattern, replace, flag1, flag2))
+        if Key:
+            matches.append(self.key_search(first_pattern, replace, flag1, flag2))
+        if not Range and not Set and not Asterisk and not Question and not Key:
+            matches.append(self.search(first_pattern, replace, flag1, flag2))
+        
+        Range = Identify.symbol_finder(second_pattern, 0, 45)
+        Set = Identify.symbol_finder(second_pattern, 0, 91)
+        Asterisk = Identify.symbol_finder(second_pattern, 0, ord(config["global"]["any_letter"]))
+        Question = Identify.symbol_finder(second_pattern, 0, ord(config["global"]["appear"]))
+        Key = Identify.symbol_finder(second_pattern, 0, 123)
+        if Range:
+            matches.append(self.range_search(second_pattern, replace, flag1, flag2))
+        if Set:
+            matches.append(self.set_search(second_pattern, replace, flag1, flag2))
+        if Asterisk:
+            matches.append(self.all_char_search(second_pattern, replace, flag1, flag2))
+        if Question:
+            matches.append(self.question_search(second_pattern, replace, flag1, flag2))
+        if Key:
+            matches.append(self.key_search(second_pattern, replace, flag1, flag2))
+        if not Range and not Set and not Asterisk and not Question and not Key:
+            matches.append(self.search(second_pattern, replace, flag1, flag2))
         return matches
     
     def key_search(self, pattern, replace, key_idx, flag1, flag2):
